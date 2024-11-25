@@ -1,3 +1,4 @@
 import "./styles.css";
-
-console.log("Hello");
+import * as data from "./data.js";
+data.initFromStorage();
+console.log(data.projects);
