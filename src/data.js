@@ -170,4 +170,4 @@ function removeTask(id) {
     delete tasks[id];
 }
 
-export { projects, createProject, removeProject, createTask, removeTask, initFromStorage };
+export { projects, tasks, createProject, removeProject, createTask, removeTask, initFromStorage };
