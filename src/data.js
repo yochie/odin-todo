@@ -1,46 +1,40 @@
 import * as storage from "./storage.js";
 
-const LAST_PROJECT_ID_KEY = "lastProjectID";
-const LAST_TASK_ID_KEY = "lastTaskID";
-const PROJECT_ID_PREFIX = "p_";
-const TASK_ID_PREFIX = "t_";
-
-let lastProjectID = 0;
-let lastTaskID = 0;
 const projects = {};
-const tasks = {};
 
 class Project {
     name = "";
-    id = "";
-    #tasks = [];
+    tasks = {};
 
-    constructor(name, id) {
+    constructor(name) {
         this.name = name;
-        this.id = id;
     }
 
-    addTask(taskID) {
-        this.#tasks.push(taskID);
+    setTask(taskTitle, task) {
+        this.tasks[taskTitle] = task;
     }
 
-    getTaskList() {
-        return this.#tasks;
+    getTask(title) {
+        return this.tasks[title];
+    }
+
+    hasTask(title) {
+        return this.tasks.hasOwnProperty(title);
+    }
+    
+    removeTask(title){
+        delete this.tasks[title];
     }
 }
 
 class Task {
-    id = "";
-    forProjectID = "";
     title = "";
     description = "";
     dueDate = null;
     priority = "";
     notes = "";
 
-    constructor(id, forProjectID, title, description, dueDate, priority, notes) {
-        this.id = id;
-        this.forProjectID = forProjectID;
+    constructor(title, description, dueDate, priority, notes) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -50,105 +44,63 @@ class Task {
 }
 
 function initFromStorage() {
-    const projectKeys = [];
-    const taskKeys = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        if (key === null) {
-            continue;
-        }
-        if (key.startsWith(PROJECT_ID_PREFIX)) {
-            projectKeys.push(key);
-        } else if (key.startsWith(TASK_ID_PREFIX)) {
-            taskKeys.push(key);
-        } else if (key === LAST_TASK_ID_KEY) {
-            lastTaskID = storage.read(LAST_TASK_ID_KEY);
-        } else if (key === LAST_PROJECT_ID_KEY) {
-            lastProjectID = storage.read(LAST_PROJECT_ID_KEY);
-        } else {
-            throw new Error(`Can't parse local storage with key ${key}`);
-        }
+    const rawProjectList = storage.load();
+    if (rawProjectList === null) {
+        return;
     }
-
-    projectKeys.forEach(key => {
-        initProject(key, JSON.parse(localStorage.getItem(key)));
-    });
-
-    taskKeys.forEach(key => {
-        initTask(key, JSON.parse(localStorage.getItem(key)));
-    });
-
-    //will create if not existing
-    //should just rewrite same value otherwise
-    storage.create(LAST_PROJECT_ID_KEY, lastProjectID);
-    storage.create(LAST_TASK_ID_KEY, lastTaskID);
-}
-
-function initProject(key, obj) {
-    if (!obj.hasOwnProperty("name")) {
-        throw new Error("Malformed project storage data");
+    for (let projectKey in rawProjectList) {
+        const project = rawProjectList[projectKey];
+        const newProject = new Project(project.name);
+        for (let taskKey in project.tasks) {
+            const task = project.tasks[taskKey];
+            const newTask = new Task();
+            Object.assign(newTask, task);
+            if (task.dueDate !== undefined) {
+                newTask.dueDate = Date.parse(task.dueDate);
+            }
+            newProject.setTask(newTask.title, newTask);
+        }
+        projects[newProject.name] = newProject;
     }
-    projects[key] = new Project(obj.name, obj.id);
-}
-
-function initTask(key, obj) {
-    const task = new Task(
-        key,
-        obj.forProjectID,
-        obj.title,
-        obj.description,
-        Date.parse(obj.dueDate),
-        obj.priority,
-        obj.notes
-    );
-    tasks[task.id] = task;
-    projects[task.forProjectID].addTask(task.id);
-}
-
-function generateProjectID() {
-    lastProjectID++;
-    storage.update(LAST_PROJECT_ID_KEY, lastProjectID);
-    return PROJECT_ID_PREFIX + lastProjectID;
-}
-
-function generateTaskID() {
-    lastTaskID++;
-    storage.update(LAST_TASK_ID_KEY, lastTaskID);
-    return TASK_ID_PREFIX + lastTaskID;
 }
 
 function createProject(name) {
-    if(name === undefined){
-        return;
+    if (name === undefined) {
+        throw new Error("Can't delete project without providing name");
     }
-    const newProject = new Project(name, generateProjectID());
-    storage.create(newProject.id, newProject);
-    projects[newProject.id] = newProject;
+
+    // dont allow duplicate names, we use those as keys
+    if (projects.hasOwnProperty(name)) {
+        throw new Error(`A project with the name ${name} already exists.`)
+    }
+
+    const newProject = new Project(name);
+    projects[name] = newProject;
+    storage.save(projects);
 }
 
 //will also delete all linked tasks
-function removeProject(id) {
-    const toDelete = projects[id];
+function removeProject(name) {
+    const toDelete = projects[name];
     if (toDelete === undefined) {
-        return;
+        throw new Error(`Can't delete project ${name} as it can't be found.`);
     }
-    for (let taskID of toDelete.getTaskList()) {
-        removeTask(taskID);
-    }
-    storage.del(id);
-    delete projects[id];
+    delete projects[name];
+    storage.save(projects);
 }
 
 function createTask(formData) {
-    if(formData.title === undefined || formData.forProjectID === undefined){
-        return;
+    if (formData.title === undefined || formData.forProject === undefined) {
+        throw new Error("Can't create task without both title and project");
     }
-    if (!projects.hasOwnProperty(formData.forProjectID)) {
-        throw new Error(`Can't create task for project ${formData.forProjectID} because that project can't be found.`);
+    if (!projects.hasOwnProperty(formData.forProject)) {
+        throw new Error(`Can't create task for project ${formData.forProject} because that project can't be found.`);
+    }
+    if (projects[formData.forProject].hasTask(formData.title)) {
+        //prevent overwriting existing task
+        throw new Error(`A task with the name ${formData.title} already exists`);
     }
     const newTask = new Task(
-        generateTaskID(),
-        formData.forProjectID,
         formData.title,
         formData.description,
         formData.dueDate,
@@ -156,18 +108,20 @@ function createTask(formData) {
         formData.notes
     );
 
-    storage.create(newTask.id, newTask);
-    projects[newTask.forProjectID].addTask(newTask.id);
-    tasks[newTask.id] = newTask;
+    projects[formData.forProject].setTask(newTask.title, newTask);
+    storage.save(projects);
 }
 
-function removeTask(id) {
-    const toDelete = tasks[id];
-    if (toDelete === undefined) {
-        return;
+function removeTask(projectName, taskTitle) {
+    if (!projects.hasOwnProperty(projectName)) {
+        throw new Error(`Can't remove task from project ${projectName} as it can't be found`);
     }
-    storage.del(id);
-    delete tasks[id];
+    const project = projects[projectName];
+    if (!project.hasTask(taskTitle)) {
+        throw new Error(`Can't delete task ${taskTitle} as their is no task by that name on this project.`);
+    }
+    project.removeTask(taskTitle);
+    storage.save(projects);
 }
 
-export { projects, tasks, createProject, removeProject, createTask, removeTask, initFromStorage };
+export { projects, createProject, removeProject, createTask, removeTask, initFromStorage };

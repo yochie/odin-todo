@@ -1,33 +1,14 @@
-//will overwrite with sent value if it already exists
-function create(id, obj) {
-    localStorage.setItem(id, JSON.stringify(obj));
+const PROJECTS_KEY = "projects";
+
+function save(projects){
+    localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
 }
 
-function read(id) {
-    return JSON.parse(localStorage.getItem(id));
-}
-
-function update(id, obj) {
-    let stored = JSON.parse(localStorage.getItem(id));
-    if (typeof stored === "object") {
-        for (let key in obj) {
-            stored[key] = obj[key];
-        }
-    } else {
-        //this should be some literal value (functions cant be stored here)
-        //should be safe to just overwrite
-        stored = obj;
-    }
-    localStorage.setItem(id, JSON.stringify(stored));
-}
-
-function del(id) {
-    localStorage.removeItem(id);
+//returns raw objects that need to be parsed into classes
+function load(){
+    return JSON.parse(localStorage.getItem(PROJECTS_KEY));
 }
 
 export {
-    create,
-    read,
-    update,
-    del,
+    save, load
 };
