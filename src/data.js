@@ -140,6 +140,9 @@ function removeProject(id) {
 }
 
 function createTask(formData) {
+    if(formData.title === undefined || formData.forProjectID === undefined){
+        return;
+    }
     if (!projects.hasOwnProperty(formData.forProjectID)) {
         throw new Error(`Can't create task for project ${formData.forProjectID} because that project can't be found.`);
     }
