@@ -8,7 +8,7 @@ const TASK_ID_PREFIX = "t_";
 let lastProjectID = 0;
 let lastTaskID = 0;
 const projects = {};
-
+const tasks = {};
 
 class Project {
     name = "";
@@ -20,8 +20,12 @@ class Project {
         this.id = id;
     }
 
-    addTask(task) {
-        this.#tasks.push(task);
+    addTask(taskID) {
+        this.#tasks.push(taskID);
+    }
+
+    getTaskList() {
+        return this.#tasks;
     }
 }
 
@@ -55,7 +59,6 @@ function initFromStorage() {
         }
         if (key.startsWith(PROJECT_ID_PREFIX)) {
             projectKeys.push(key);
-            //task ids are prefixed with "t_"
         } else if (key.startsWith(TASK_ID_PREFIX)) {
             taskKeys.push(key);
         } else if (key === LAST_TASK_ID_KEY) {
@@ -89,8 +92,17 @@ function initProject(key, obj) {
 }
 
 function initTask(key, obj) {
-    const task = new Task(key, obj.forProjectID, obj.title, obj.description, Date.parse(obj.dueDate), obj.priority, obj.notes);
-    projects[task.forProjectID].addTask(task);
+    const task = new Task(
+        key,
+        obj.forProjectID,
+        obj.title,
+        obj.description,
+        Date.parse(obj.dueDate),
+        obj.priority,
+        obj.notes
+    );
+    tasks[task.id] = task;
+    projects[task.forProjectID].addTask(task.id);
 }
 
 function generateProjectID() {
@@ -106,34 +118,53 @@ function generateTaskID() {
 }
 
 function createProject(name) {
+    if(name === undefined){
+        return;
+    }
     const newProject = new Project(name, generateProjectID());
     storage.create(newProject.id, newProject);
     projects[newProject.id] = newProject;
 }
 
+//will also delete all linked tasks
 function removeProject(id) {
+    const toDelete = projects[id];
+    if (toDelete === undefined) {
+        return;
+    }
+    for (let taskID of toDelete.getTaskList()) {
+        removeTask(taskID);
+    }
     storage.del(id);
     delete projects[id];
 }
 
 function createTask(formData) {
-    if(!projects.hasOwnProperty(formData.forProjectID)){
-        throw new Error (`Can't create task for project ${formData.forProjectID} because that project can't be found.`);
+    if (!projects.hasOwnProperty(formData.forProjectID)) {
+        throw new Error(`Can't create task for project ${formData.forProjectID} because that project can't be found.`);
     }
     const newTask = new Task(
         generateTaskID(),
-        formData.forProjectID, 
+        formData.forProjectID,
         formData.title,
         formData.description,
         formData.dueDate,
         formData.priority,
         formData.notes
     );
+
     storage.create(newTask.id, newTask);
     projects[newTask.forProjectID].addTask(newTask);
+    tasks[newTask.id] = newTask;
 }
 
-function removeTask() { }
-
+function removeTask(id) {
+    const toDelete = tasks[id];
+    if (toDelete === undefined) {
+        return;
+    }
+    storage.del(id);
+    delete tasks[id];
+}
 
 export { projects, createProject, removeProject, createTask, removeTask, initFromStorage };
