@@ -157,7 +157,7 @@ function createTask(formData) {
     );
 
     storage.create(newTask.id, newTask);
-    projects[newTask.forProjectID].addTask(newTask);
+    projects[newTask.forProjectID].addTask(newTask.id);
     tasks[newTask.id] = newTask;
 }
 
