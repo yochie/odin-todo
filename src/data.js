@@ -80,7 +80,7 @@ function createProject(name) {
 }
 
 //will also delete all linked tasks
-function removeProject(name) {
+function deleteProject(name) {
     const toDelete = projects[name];
     if (toDelete === undefined) {
         throw new Error(`Can't delete project ${name} as it can't be found.`);
@@ -112,7 +112,7 @@ function createTask(formData) {
     storage.save(projects);
 }
 
-function removeTask(projectName, taskTitle) {
+function deleteTask(projectName, taskTitle) {
     if (!projects.hasOwnProperty(projectName)) {
         throw new Error(`Can't remove task from project ${projectName} as it can't be found`);
     }
@@ -124,4 +124,4 @@ function removeTask(projectName, taskTitle) {
     storage.save(projects);
 }
 
-export { projects, createProject, removeProject, createTask, removeTask, initFromStorage };
+export { projects, createProject, deleteProject, createTask, deleteTask, initFromStorage };
