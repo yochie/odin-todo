@@ -21,8 +21,8 @@ class Project {
     hasTask(title) {
         return this.tasks.hasOwnProperty(title);
     }
-    
-    removeTask(title){
+
+    removeTask(title) {
         delete this.tasks[title];
     }
 }
@@ -56,7 +56,7 @@ function initFromStorage() {
             const newTask = new Task();
             Object.assign(newTask, task);
             if (task.dueDate !== undefined) {
-                newTask.dueDate = new Date (task.dueDate);
+                newTask.dueDate = new Date(task.dueDate);
             }
             newProject.setTask(newTask.title, newTask);
         }
@@ -76,6 +76,26 @@ function createProject(name) {
 
     const newProject = new Project(name);
     projects[name] = newProject;
+    storage.save(projects);
+}
+
+function readProject(name) {
+    return projects[name];
+}
+
+function updateProject(name, formData) {
+    if (!projects.hasOwnProperty(name)) {
+        throw new Error(`Can't update ${name}. No such project exists.`);
+    }
+    
+    const toUpdate = projects[name];
+    const newName = formData.name;
+    if(toUpdate.name !== newName){
+        projects[newName] = toUpdate;
+        delete projects[name];
+    }
+
+    toUpdate.name = newName;
     storage.save(projects);
 }
 
@@ -112,6 +132,36 @@ function createTask(formData) {
     storage.save(projects);
 }
 
+function readTask(projectName, title) {
+    if (title === undefined || projectName === undefined) {
+        throw new Error("Can't read task without both title and project.");
+    }
+    if (!projects.hasOwnProperty(projectName)) {
+        throw new Error(`Can't read task for project ${formData.forProject} because that project can't be found.`);
+    }
+    if (!projects[projectName].hasTask(title)) {
+        throw new Error(`Can read task ${title} on ${projectName} because it doesn't exist.`);
+    }
+
+    return projects[projectName].getTask(title);
+}
+
+function updateTask(projectName, title, formData) {
+    if (title === undefined || projectName === undefined) {
+        throw new Error("Can't update task without both title and project.");
+    }
+    if (!projects.hasOwnProperty(projectName)) {
+        throw new Error(`Can't update task for project ${formData.forProject} because that project can't be found.`);
+    }
+    if (!projects[projectName].hasTask(title)) {
+        throw new Error(`Can update task ${title} on ${projectName} because it doesn't exist.`);
+    }
+
+    deleteTask(projectName, title);
+    createTask(formData);
+    //no need to save since we are using main interface functions that already save
+}
+
 function deleteTask(projectName, taskTitle) {
     if (!projects.hasOwnProperty(projectName)) {
         throw new Error(`Can't remove task from project ${projectName} as it can't be found`);
@@ -124,4 +174,15 @@ function deleteTask(projectName, taskTitle) {
     storage.save(projects);
 }
 
-export { projects, createProject, deleteProject, createTask, deleteTask, initFromStorage };
+export {
+    projects,
+    createProject,
+    readProject,
+    updateProject,
+    deleteProject,
+    createTask,
+    readTask,
+    updateTask,
+    deleteTask,
+    initFromStorage
+};
