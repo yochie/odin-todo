@@ -37,3 +37,7 @@ img {
 }
 
 /* Normalize end */
+
+body {
+  display: flex;
+}

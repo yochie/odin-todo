@@ -1,0 +1,23 @@
+.project-container {
+    flex: 1;
+}
+
+.project-container .project-name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.project-container .tasks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 33%));
+}
+
+.project-container .task-card {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.project-container .task-card h3 {
+   font-weight: bold; 
+}
