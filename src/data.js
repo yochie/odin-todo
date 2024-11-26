@@ -26,7 +26,7 @@ class Project {
         delete this.tasks[title];
     }
 
-    getTaskList(){
+    getTaskList() {
         return Object.values(this.tasks);
     }
 }
@@ -47,11 +47,23 @@ class Task {
     }
 }
 
-function initFromStorage() {
+// should only be false on first time running or if you somehow deleted default project
+function isStorageSetup(defaultProjectName, rawProjectList) {
+    if (rawProjectList === null || !Object.keys(rawProjectList).includes(defaultProjectName)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function initFromStorage(defaultProjectName) {
     const rawProjectList = storage.load();
-    if (rawProjectList === null) {
+    if (!isStorageSetup(defaultProjectName, rawProjectList)) {
+        //note this deletes all previous data as it saves the newly created base state without reading in other projects
+        createProject(defaultProjectName);
         return;
     }
+    
     for (let projectKey in rawProjectList) {
         const project = rawProjectList[projectKey];
         const newProject = new Project(project.name);
@@ -70,7 +82,7 @@ function initFromStorage() {
 
 function createProject(name) {
     if (name === undefined) {
-        throw new Error("Can't delete project without providing name");
+        throw new Error("Can't create project without providing name");
     }
 
     // dont allow duplicate names, we use those as keys
@@ -84,6 +96,14 @@ function createProject(name) {
 }
 
 function readProject(name) {
+    if (name === undefined) {
+        throw new Error("Can't read project without providing name");
+    }
+
+    // dont allow duplicate names, we use those as keys
+    if (!projects.hasOwnProperty(name)) {
+        throw new Error(`Can't read project with the name ${name} as it can't be found.`)
+    }
     return projects[name];
 }
 
@@ -91,10 +111,10 @@ function updateProject(name, formData) {
     if (!projects.hasOwnProperty(name)) {
         throw new Error(`Can't update ${name}. No such project exists.`);
     }
-    
+
     const toUpdate = projects[name];
     const newName = formData.name;
-    if(toUpdate.name !== newName){
+    if (toUpdate.name !== newName) {
         projects[newName] = toUpdate;
         delete projects[name];
     }
@@ -178,7 +198,7 @@ function deleteTask(projectName, taskTitle) {
     storage.save(projects);
 }
 
-function getProjectNameList(){
+function getProjectNameList() {
     return Object.keys(projects);
 }
 
