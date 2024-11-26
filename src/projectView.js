@@ -4,7 +4,6 @@ function renderProject(project) {
     const nameNode = document.querySelector(".project-name");
     nameNode.textContent = project.name;
 
-
     const taskContainer = document.querySelector(".tasks-container");
     for (let task of project.getTaskList()) {
         const card = createTaskCard(task);

@@ -31,3 +31,7 @@
 .project-list li button:hover {
     font-weight: bold;
 }
+
+.project-list li button.selected {
+    color: blue;
+}

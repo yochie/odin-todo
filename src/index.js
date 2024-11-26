@@ -1,12 +1,8 @@
 import "./styles.css";
-import * as data from "./data.js";
-import * as projectView from "./projectView.js"
-import * as projectList from "./projectList.js"
+import * as controller from "./controller.js";
 
 //tests
-data.initFromStorage();
-projectList.renderProjectList(data.getProjectNameList());
-projectView.renderProject(data.readProject("p2"));
+controller.init();
 
 // localStorage.clear();
 // data.updateTask("p1", "t2", {title: "t3", priority: "low", forProject: "p1"});
