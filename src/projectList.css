@@ -2,8 +2,9 @@
     padding: 20px;
     background-color: blueviolet;
     min-height: 100vh;
-    min-width: 15%;
-    max-width: 20%;
+    max-width: 21ch;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-list h2 {
@@ -26,6 +27,7 @@
     border: none;
     width: 100%;
     text-align: left;
+    max-width: 20ch;
 }
 
 .project-list li button:hover {
@@ -34,4 +36,18 @@
 
 .project-list li button.selected {
     color: blue;
+}
+
+.project-list .title {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.project-list .add-project-button {
+    width: 30px;
+    align-self: center;
+    background-color: aqua;
+    border-radius: 5px;
+    border: none;
 }

@@ -5,23 +5,20 @@ const SELECTED_BUTTON_CLASS = "selected";
 function initProjectList(projects) {
     const container = document.querySelector(".project-list");
 
-    const title = document.createElement("h2");
-    title.textContent = "Projects";
-    container.appendChild(title);
-
-    const ul = document.createElement("ul");
+    const ul = document.querySelector(".project-list ul");
+    ul.replaceChildren();
     ul.role = "list";
 
     for (let projectName of projects) {
         const entry = document.createElement("li");
         const button = document.createElement("button");
+        button.classList.add("project-select-button");
         button["data-attribute"] = projectName;
         button.textContent = projectName;
         entry.appendChild(button);
         buttons.push(button);
         ul.appendChild(entry);
     }
-    container.appendChild(ul);
 }
 
 function select(projectName){

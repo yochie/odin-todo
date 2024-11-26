@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "date-fns": "^4.1.0",
-    "modern-normalize": "^3.0.1"
+    "modern-normalize": "^3.0.1",
+    "string-sanitizer": "^2.0.2"
   }
 }

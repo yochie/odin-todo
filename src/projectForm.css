@@ -1,0 +1,11 @@
+.project-form {
+    display: none;
+}
+
+.project-form:invalid {
+    outline: 3px solid red;
+}
+
+.project-form:valid {
+    outline: 3px solid green;
+}
