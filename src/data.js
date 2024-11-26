@@ -25,6 +25,10 @@ class Project {
     removeTask(title) {
         delete this.tasks[title];
     }
+
+    getTaskList(){
+        return Object.values(this.tasks);
+    }
 }
 
 class Task {
