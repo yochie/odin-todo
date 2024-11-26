@@ -178,8 +178,12 @@ function deleteTask(projectName, taskTitle) {
     storage.save(projects);
 }
 
+function getProjectNameList(){
+    return Object.keys(projects);
+}
+
 export {
-    projects,
+    getProjectNameList,
     createProject,
     readProject,
     updateProject,
