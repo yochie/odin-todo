@@ -56,7 +56,7 @@ function initFromStorage() {
             const newTask = new Task();
             Object.assign(newTask, task);
             if (task.dueDate !== undefined) {
-                newTask.dueDate = Date.parse(task.dueDate);
+                newTask.dueDate = new Date (task.dueDate);
             }
             newProject.setTask(newTask.title, newTask);
         }
