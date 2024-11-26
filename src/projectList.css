@@ -15,9 +15,19 @@
     flex-direction: column;
 }
 
-.project-list li {
-    margin-left: 20px;
+.project-list li button {
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis !important;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.project-list li button:hover {
+    font-weight: bold;
 }

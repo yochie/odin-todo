@@ -12,7 +12,9 @@ function renderProjectList(projects) {
 
     for(let projectName of projects){
         const entry = document.createElement("li");
-        entry.textContent = projectName;
+        const button = document.createElement("button");
+        button.textContent = projectName;
+        entry.appendChild(button);
         ul.appendChild(entry);
     }
     container.appendChild(ul);
