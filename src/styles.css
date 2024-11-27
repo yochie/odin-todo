@@ -41,3 +41,11 @@ img {
 body {
   display: flex;
 }
+
+.mybutton {
+    min-width: 30px;
+    padding: 5px 1ch;
+    background-color: aqua;
+    border-radius: 5px;
+    border: none;
+}
