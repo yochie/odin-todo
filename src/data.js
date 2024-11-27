@@ -96,14 +96,15 @@ function createProject(name) {
 }
 
 function readProject(name) {
-    if (name === undefined) {
+    if (name === undefined || name === "") {
         throw new Error("Can't read project without providing name");
     }
 
-    // dont allow duplicate names, we use those as keys
+    //not an error because you can use this to check if project exists
     if (!projects.hasOwnProperty(name)) {
-        throw new Error(`Can't read project with the name ${name} as it can't be found.`)
+        return null;
     }
+
     return projects[name];
 }
 
@@ -165,14 +166,18 @@ function createTask(formData) {
 }
 
 function readTask(projectName, title) {
-    if (title === undefined || projectName === undefined) {
+    if (title === undefined || title === "" || projectName === undefined || projectName === "") {
         throw new Error("Can't read task without both title and project.");
     }
+
+    // this isn't an error, it allows checking if a project/task exists
     if (!projects.hasOwnProperty(projectName)) {
-        throw new Error(`Can't read task for project ${formData.forProject} because that project can't be found.`);
+        return null;
     }
+
+    // this isn't an error, it allows checking if a project/task exists
     if (!projects[projectName].hasTask(title)) {
-        throw new Error(`Can read task ${title} on ${projectName} because it doesn't exist.`);
+        return null;
     }
 
     return projects[projectName].getTask(title);
