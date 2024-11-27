@@ -2,8 +2,10 @@ import * as projectView from "./projectView.js";
 import * as projectList from "./projectList.js";
 import * as data from "./data.js";
 import * as projectForm from "./projectForm.js";
+import * as taskForm from "./taskForm.js";
 
 const DEFAULT_PROJECT_NAME = "Default";
+let currentProject = DEFAULT_PROJECT_NAME;
 
 function init() {
     data.initFromStorage(DEFAULT_PROJECT_NAME);
@@ -24,7 +26,11 @@ function generateProjectListWithHandlers(){
 }
 
 function registerEventHandlers() {
+    registerProjectFormHandlers();
+    registerTaskFormHandlers();
+}
 
+function registerProjectFormHandlers(){
     const projectAddButton = document.querySelector(".add-project-button");
     projectAddButton.addEventListener("click", projectForm.toggleDisplay);
 
@@ -42,10 +48,24 @@ function registerEventHandlers() {
     });
 }
 
+function registerTaskFormHandlers(){
+    const taskAddButton = document.querySelector(".add-task-button");
+    taskAddButton.addEventListener("click", taskForm.toggleDisplay);
+
+    const submitButton = document.querySelector(".task-submit");
+    submitButton.addEventListener("click", event => {
+        const success = taskForm.submit();
+        if(success){
+            projectView.renderProject(currentProject);
+        }
+    });
+}
+
 function selectProject(projectName) {
     projectList.select(projectName);
     const project = data.readProject(projectName);
     projectView.renderProject(project);
+    currentProject = projectName;
 }
 
 export {

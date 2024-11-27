@@ -14,7 +14,7 @@
             <h2>Projects</h2>
             <button class="mybutton add-project-button">+</button>
         </div>
-        <input class="project-form" type="text" pattern="[a-zA-Z0-9]*" maxlength="50" minlength="1">
+        <input class="project-form" type="text" pattern="[a-zA-Z0-9]*" maxlength="50" placeholder="<Project name>" required>
         <ul>
         </ul>
     </div>
@@ -25,6 +25,31 @@
             <h2 class="project-name">Default project</h2>
             <button class="mybutton add-task-button">+</button>
         </div>
+        <form class="task-form">
+            <label for="task-name">Task</label>
+            <input id="task-name" type="text" pattern="[a-zA-Z0-9\.\,]*" maxlength="200" minlength="1">
+
+            <label for="task-due-date">Due by</label>
+            <input id="task-due-date" type="date">
+
+            <fieldset>
+                <legend>Priority</legend>
+                <label for="task-priority-normal">normal</label>
+                <input id="task-priority-normal" name="task-priority" type="radio" value="normal" checked>
+                <label for="task-priority-high">high</label>
+                <input id="task-priority-high" name="task-priority" type="radio" value="high">
+                <label for="task-priority-low">low</label>
+                <input id="task-priority-low" name="task-priority" type="radio" value="low">
+            </fieldset>
+
+            <label for="task-description">Description</label>
+            <textarea id="task-description"></textarea>
+
+            <label for="task-notes">Notes</label>
+            <textarea id="task-notes"></textarea>
+
+            <button class="task-submit" type="button">Create</button>
+        </form>
         <div class="tasks-container">
         </div>
     </div>
