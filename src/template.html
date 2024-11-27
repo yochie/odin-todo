@@ -14,7 +14,9 @@
             <h2>Projects</h2>
             <button class="mybutton add-project-button">+</button>
         </div>
-        <input class="project-form" type="text" pattern="[a-zA-Z0-9]*" maxlength="50" placeholder="<Project name>" required>
+        <input class="project-form" type="text" pattern="[a-zA-Z0-9]*" maxlength="50" placeholder="project name"
+            required>
+        <div class="project-create-error"></div>
         <ul>
         </ul>
     </div>
@@ -28,7 +30,7 @@
         <div class="task-form-container">
             <form class="task-form">
                 <label for="task-name">Task</label>
-                <input id="task-name" name="title"type="text" pattern="[a-zA-Z0-9\.\,]*" maxlength="200" required>
+                <input id="task-name" name="title" type="text" pattern="[a-zA-Z0-9\.\,]*" maxlength="200" required>
                 <label for="task-due-date">Due by</label>
                 <input id="task-due-date" name="dueDate" type="date">
                 <fieldset>
@@ -45,6 +47,7 @@
                 <label for="task-notes">Notes</label>
                 <textarea id="task-notes" name="notes"></textarea>
                 <button class="task-submit" type="submit">Create</button>
+                <div class="task-create-error"></div>
             </form>
         </div>
         <div class="tasks-container">

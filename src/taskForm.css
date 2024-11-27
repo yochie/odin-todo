@@ -26,5 +26,14 @@
 }
 
 .task-form .task-submit {
+    padding: 10px 20px;
     grid-column: span 2;
+}
+
+.task-create-error {
+    grid-column: span 2;
+    display: none;
+    background-color: lightcoral;
+    width: 100%;
+    padding: 10px;
 }

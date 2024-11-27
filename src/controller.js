@@ -58,7 +58,6 @@ function registerTaskFormHandlers(){
             const project = data.readProject(currentProjectName)
             projectView.renderProject(project);
         }
-
         event.preventDefault();
     });
 }
