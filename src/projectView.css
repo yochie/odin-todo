@@ -17,7 +17,8 @@
 
 .project-container .tasks-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 33%));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 30%));
+    gap: 20px;
 }
 
 .project-container .task-card {

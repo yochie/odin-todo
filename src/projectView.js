@@ -5,6 +5,7 @@ function renderProject(project) {
     nameNode.textContent = project.name;
 
     const taskContainer = document.querySelector(".tasks-container");
+    taskContainer.replaceChildren();
     for (let task of project.getTaskList()) {
         const card = createTaskCard(task);
         taskContainer.appendChild(card);

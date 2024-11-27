@@ -1,4 +1,8 @@
-form {
+.task-form-container {
+    display: none;
+}
+
+.task-form {
     border: 1px dotted black;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -6,20 +10,21 @@ form {
     padding: 20px;
     min-width: 500px;
     max-width: fit-content;
+    margin-bottom: 30px;
 }
 
-form fieldset {
+.task-form fieldset {
     grid-column: span 2;
 }
 
-form fieldset legend{
+.task-form fieldset legend{
     padding: 0px 5px;
 }
 
-form fieldset input[type="radio"] {
+.task-form fieldset input[type="radio"] {
     margin-right: 30px;
 }
 
-form .task-submit {
+.task-form .task-submit {
     grid-column: span 2;
 }

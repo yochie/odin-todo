@@ -81,7 +81,7 @@ function initFromStorage(defaultProjectName) {
 }
 
 function createProject(name) {
-    if (name === undefined) {
+    if (name === undefined || name === "") {
         throw new Error("Can't create project without providing name");
     }
 
@@ -134,25 +134,33 @@ function deleteProject(name) {
 }
 
 function createTask(formData) {
-    if (formData.title === undefined || formData.forProject === undefined) {
+    //todo : there has to be a better way...
+    let title = formData.get("title"), 
+        forProject = formData.get("forProject"),
+        description = formData.get("description"),
+        dueDate = formData.get("dueDate"),
+        priority = formData.get("priority"),
+        notes = formData.get("notes");
+
+    if (title === undefined || forProject === undefined) {
         throw new Error("Can't create task without both title and project");
     }
-    if (!projects.hasOwnProperty(formData.forProject)) {
-        throw new Error(`Can't create task for project ${formData.forProject} because that project can't be found.`);
+    if (!projects.hasOwnProperty(forProject)) {
+        throw new Error(`Can't create task for project ${forProject} because that project can't be found.`);
     }
-    if (projects[formData.forProject].hasTask(formData.title)) {
+    if (projects[forProject].hasTask(title)) {
         //prevent overwriting existing task
-        throw new Error(`A task with the name ${formData.title} already exists`);
+        throw new Error(`A task with the name ${title} already exists`);
     }
     const newTask = new Task(
-        formData.title,
-        formData.description,
-        formData.dueDate,
-        formData.priority,
-        formData.notes
+        title,
+        description,
+        dueDate,
+        priority,
+        notes
     );
 
-    projects[formData.forProject].setTask(newTask.title, newTask);
+    projects[forProject].setTask(newTask.title, newTask);
     storage.save(projects);
 }
 
