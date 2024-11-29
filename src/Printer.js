@@ -56,8 +56,8 @@ class Printer {
         this.#printouts = new Map();
     }
 
-    addPrintout(key, printout) {
-        this.#printouts.set(key, printout);
+    addPrintout(key, printout, valueClassList = []) {
+        this.#printouts.set(key, { printout, classList: valueClassList });
     }
 
     print(onto, obj) {
@@ -65,8 +65,13 @@ class Printer {
             if (!this.#printouts.has(key)) {
                 continue;
             }
-            const printout = this.#printouts.get(key);
+            const format = this.#printouts.get(key);
+            const printout = format.printout;
+            const classList = format.classList;
             const printed = printout.print(obj[key]);
+            if (classList.length !== 0) {
+                printed.value.classList.add(classList);
+            }
             onto.appendChild(printed.label);
             onto.appendChild(printed.value);
         }
@@ -75,7 +80,7 @@ class Printer {
     //allows reusing custom printouts
     //currently used to extract formatted/styled date
     printSingleValue(onto, obj, key) {
-        const printout = this.#printouts.get(key);
+        const printout = this.#printouts.get(key).printout;
         onto.appendChild(printout.print(obj[key]).value);
     }
 }

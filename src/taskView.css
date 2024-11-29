@@ -1,4 +1,9 @@
 dialog .task-view {
     display: grid;
     grid-template-columns: auto 1fr;
+    gap: 20px;
+}
+
+.task-view .bold {
+    font-weight: bold;
 }

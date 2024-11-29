@@ -2,9 +2,9 @@ import "./taskView.css";
 import { Printer, Printout, DatePrintout } from "./Printer.js";
 
 const taskPrinter = new Printer();
-taskPrinter.addPrintout("title", new Printout("Task"));
+taskPrinter.addPrintout("title", new Printout("Task"), ["bold"]);
 taskPrinter.addPrintout("dueDate", new DatePrintout("Due by"));
-taskPrinter.addPrintout("priority", new Printout("Printout"));
+taskPrinter.addPrintout("priority", new Printout("Priority"));
 taskPrinter.addPrintout("description", new Printout("Description"));
 taskPrinter.addPrintout("notes", new Printout("Notes"));
 
