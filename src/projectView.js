@@ -1,4 +1,5 @@
 import "./projectView.css"
+import * as taskView from "./taskView.js";
 import { parseISO, format, differenceInCalendarDays } from "date-fns";
 
 function renderProject(project) {
@@ -33,6 +34,9 @@ function createTaskCard(task) {
         }
         card.appendChild(dueDatePrintout);
     }
+
+    taskView.setup(card, task);
+
     return card;
 }
 
