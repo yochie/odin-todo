@@ -32,13 +32,13 @@ class Project {
 }
 
 class Task {
-    title = "";
+    title;
     description = "";
-    dueDate = null;
+    dueDate = "";
     priority = "";
     notes = "";
 
-    constructor(title, description, dueDate, priority, notes) {
+    constructor(title, description = "", dueDate = "", priority = "", notes = "") {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -63,17 +63,14 @@ function initFromStorage(defaultProjectName) {
         createProject(defaultProjectName);
         return;
     }
-    
+
     for (let projectKey in rawProjectList) {
-        const project = rawProjectList[projectKey];
-        const newProject = new Project(project.name);
-        for (let taskKey in project.tasks) {
-            const task = project.tasks[taskKey];
+        const rawProject = rawProjectList[projectKey];
+        const newProject = new Project(rawProject.name);
+        for (let taskKey in rawProject.tasks) {
+            const rawTask = rawProject.tasks[taskKey];
             const newTask = new Task();
-            Object.assign(newTask, task);
-            if (task.dueDate !== undefined) {
-                newTask.dueDate = new Date(task.dueDate);
-            }
+            Object.assign(newTask, rawTask);
             newProject.setTask(newTask.title, newTask);
         }
         projects[newProject.name] = newProject;
@@ -136,7 +133,7 @@ function deleteProject(name) {
 
 function createTask(formData) {
     //todo : there has to be a better way...
-    let title = formData.get("title"), 
+    let title = formData.get("title"),
         forProject = formData.get("forProject"),
         description = formData.get("description"),
         dueDate = formData.get("dueDate"),
