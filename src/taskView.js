@@ -8,21 +8,6 @@ taskPrinter.addPrintout("priority", new Printout("Priority"));
 taskPrinter.addPrintout("description", new Printout("Description"));
 taskPrinter.addPrintout("notes", new Printout("Notes"));
 
-function setupModal(parent, task) {
-    const dialog = document.createElement("dialog");
-    const container = document.createElement("div");
-    container.classList.add("task-view");
-
-    taskPrinter.print(container, task);
-
-    dialog.appendChild(container);
-    parent.appendChild(dialog);
-
-    parent.addEventListener("click", (e) => {
-        dialog.showModal();
-    });
-}
-
 function createTaskCard(task) {
     const card = document.createElement("div");
     card.classList.add("task-card");
@@ -39,5 +24,21 @@ function createTaskCard(task) {
 
     return card;
 }
+
+function setupModal(parent, task) {
+    const dialog = document.createElement("dialog");
+    const container = document.createElement("div");
+    container.classList.add("task-view");
+
+    taskPrinter.print(container, task);
+
+    dialog.appendChild(container);
+    parent.appendChild(dialog);
+
+    parent.addEventListener("click", (e) => {
+        dialog.showModal();
+    });
+}
+
 
 export { createTaskCard }
