@@ -1,4 +1,5 @@
 import "./projectView.css"
+import { parseISO, format, differenceInCalendarDays } from "date-fns";
 
 function renderProject(project) {
     const nameNode = document.querySelector(".project-name");
@@ -18,8 +19,20 @@ function createTaskCard(task) {
 
     const taskTitle = document.createElement("h3");
     taskTitle.textContent = task.title;
-
     card.appendChild(taskTitle);
+
+    if (task.dueDate !== "") {
+        const dueDate = parseISO(task.dueDate);
+        const dueDatePrintout = document.createElement("p");
+        dueDatePrintout.textContent = format(dueDate, "MM/dd/yyyy");
+        let diff = differenceInCalendarDays(dueDate, Date.now());
+        if (diff == 0) {
+            dueDatePrintout.classList.add("today");
+        } else if (diff < 0) {
+            dueDatePrintout.classList.add("past");
+        }
+        card.appendChild(dueDatePrintout);
+    }
     return card;
 }
 

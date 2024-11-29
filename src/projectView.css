@@ -30,3 +30,11 @@
 .project-container .task-card h3 {
    font-weight: bold; 
 }
+
+.today {
+    color: orange;
+}
+
+.past {
+    color: red;
+}
