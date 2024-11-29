@@ -1,16 +1,43 @@
-function setup(element, task){
+import "./taskView.css";
+import { Printer, Printout, DatePrintout } from "./Printer.js";
+
+const taskPrinter = new Printer();
+taskPrinter.addPrintout("title", new Printout("Task"));
+taskPrinter.addPrintout("dueDate", new DatePrintout("Due by"));
+taskPrinter.addPrintout("priority", new Printout("Printout"));
+taskPrinter.addPrintout("description", new Printout("Description"));
+taskPrinter.addPrintout("notes", new Printout("Notes"));
+
+function setupModal(parent, task) {
     const dialog = document.createElement("dialog");
+    const container = document.createElement("div");
+    container.classList.add("task-view");
 
-    const title = document.createElement("h2");
-    title.textContent = task.title;
-    dialog.appendChild(title);
+    taskPrinter.print(container, task);
 
+    dialog.appendChild(container);
+    parent.appendChild(dialog);
 
-    element.appendChild(dialog);
-
-    element.addEventListener("click", (e) => {
+    parent.addEventListener("click", (e) => {
         dialog.showModal();
     });
 }
 
-export { setup }
+function createTaskCard(task) {
+    const card = document.createElement("div");
+    card.classList.add("task-card");
+
+    const taskTitle = document.createElement("h3");
+    taskTitle.textContent = task.title;
+    card.appendChild(taskTitle);
+
+    if (task.dueDate !== "") {
+        taskPrinter.printSingleValue(card, task, "dueDate");
+    }
+
+    setupModal(card, task);
+
+    return card;
+}
+
+export { createTaskCard }
