@@ -4,9 +4,15 @@ dialog .task-view {
     gap: 20px;
 }
 
-dialog .task-view .close-button{
+dialog .task-view .button-list{
     grid-column: span 2;
     justify-self: right;
+    display: flex;
+    gap: 10px;
+
+}
+
+.button-list button {
     padding: 10px 20px;
 }
 
