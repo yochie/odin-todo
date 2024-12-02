@@ -30,6 +30,16 @@ function setupModal(parent, task) {
     const container = document.createElement("div");
     container.classList.add("task-view");
 
+    const closeButton = document.createElement("button");
+    closeButton.classList.add("close-button");
+    closeButton.textContent = "X";
+    closeButton.setAttribute("autofocus", "");
+    closeButton.addEventListener("click",(e) => {
+        e.stopPropagation();
+        dialog.close();
+    });
+    container.appendChild(closeButton);
+
     taskPrinter.print(container, task);
 
     dialog.appendChild(container);

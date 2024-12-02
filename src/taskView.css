@@ -4,6 +4,12 @@ dialog .task-view {
     gap: 20px;
 }
 
+dialog .task-view .close-button{
+    grid-column: span 2;
+    justify-self: right;
+    padding: 10px 20px;
+}
+
 .task-view .bold {
     font-weight: bold;
 }
