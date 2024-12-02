@@ -1,12 +1,13 @@
 import { parseISO, format, differenceInCalendarDays } from "date-fns";
 
+// used for generating html for a labe - value pair
 class Printout {
     #label;
     constructor(label) {
         this.#label = label + ":";
     }
 
-    print(value) {
+    print(value, ) {
         const labelNode = document.createElement("p");
         labelNode.textContent = this.#label;
         const valueNode = document.createElement("p");
@@ -18,7 +19,8 @@ class Printout {
     }
 }
 
-// implements the Printout interface
+// implements the Printout interface but adds date formatting and 
+// a class to the value indicating if its in past or today
 class DatePrintout {
     #printout;
     constructor(label) {
@@ -34,7 +36,7 @@ class DatePrintout {
         /* 
         parseISO() assumes date is provided in current time zone
         instead of UTC 0 like others (e.g. parse()). 
-        Necessary because format()/now() default to local time zone 
+        Necessary because format()/now() default to local time zone.
         */
         const dueDate = parseISO(value);
         printed.value.textContent = format(dueDate, "MM/dd/yyyy");
