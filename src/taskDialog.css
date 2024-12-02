@@ -1,0 +1,13 @@
+.task-dialog {
+    max-width: 75%;
+}
+
+.task-dialog-buttons {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.task-dialog button {
+    padding: 10px 20px;
+}

@@ -7,7 +7,7 @@ class Printout {
         this.#label = label + ":";
     }
 
-    print(value, ) {
+    print(value) {
         const labelNode = document.createElement("p");
         labelNode.textContent = this.#label;
         const valueNode = document.createElement("p");
@@ -63,8 +63,8 @@ class Printer {
     }
 
     print(onto, obj) {
-        for (let key in obj) {
-            if (!this.#printouts.has(key)) {
+        for(let key of this.#printouts.keys()){
+            if(!obj.hasOwnProperty(key)){
                 continue;
             }
             const format = this.#printouts.get(key);

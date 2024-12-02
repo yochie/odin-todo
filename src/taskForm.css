@@ -3,7 +3,6 @@
 }
 
 .task-form {
-    border: 1px dotted black;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
