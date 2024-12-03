@@ -25,6 +25,7 @@ function displayFor(task, project) {
 
     const editButton = document.createElement("button");
     editButton.classList.add("task-edit-button");
+    editButton.classList.add("mybutton");
     editButton.textContent = "Edit";
     editButton.addEventListener("click", (e) => {
         displayTaskEditForm(task, project);
