@@ -42,8 +42,8 @@ function submit(projectName) {
         return "";
     }
 
-    const sanitizedName = string.sanitize(projectName);
-    if (readProject(projectName) !== null) {
+    const sanitizedName = string.sanitize.keepSpace(projectName);
+    if (readProject(sanitizedName) !== null) {
         displayError("project with this name already exists");
         return "";
     }
