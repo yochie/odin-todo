@@ -1,11 +1,17 @@
 .task-dialog {
+    min-width: 20%;
     max-width: 75%;
 }
 
-.task-dialog-buttons {
+.task-dialog-header {
     display: flex;
-    justify-content: right;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.task-dialog-header h3 {
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .task-dialog button {

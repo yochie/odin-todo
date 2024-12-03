@@ -6,6 +6,7 @@ const form = document.querySelector(".task-form");
 const error = document.querySelector(".task-create-error");
 const projectField = document.querySelector("#task-project");
 const submitButton = document.querySelector(".task-submit");
+const dialogTitle = document.querySelector(".task-dialog-title");
 let updatingTask = null;
 
 //throws custom event so that we can handle ui updates elsewhere
@@ -31,10 +32,12 @@ function displayFor(task, project) {
     form["title"].focus();
     resetError();
     if (task === null || task === undefined) {
+        dialogTitle.textContent = "Create Task";
         updatingTask = null;
         submitButton.textContent = "Create";
         return;
     }
+    dialogTitle.textContent = "Edit Task";
     updatingTask = task.title;
     fillFromTask(task);
 

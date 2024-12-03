@@ -13,8 +13,11 @@ taskPrinter.addPrintout("notes", new Printout("Notes"));
 const dialogButtons = document.querySelector(".task-dialog-buttons");
 const container = document.querySelector(".task-info-container");
 const closeButton = document.querySelector(".task-dialog-close");
+const dialogTitle = document.querySelector(".task-dialog-title");
 
 function displayFor(task, project) {
+
+    dialogTitle.textContent = "Task";
     closeButton.setAttribute("autofocus", "");
     container.replaceChildren();
     task.forProject = project;
