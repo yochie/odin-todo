@@ -40,6 +40,8 @@ img {
 :root {
   --button-color: #FADA7A;
   --primary-color: #81BFDA;
+  --secondary-color: #B1F0F7;
+  --ternary-color: #F5F0CD;
 }
 
 body {
@@ -47,9 +49,10 @@ body {
 }
 
 .mybutton {
-    min-width: 30px;
-    padding: 5px 1ch;
-    background-color: var(--button-color);
-    border-radius: 5px;
-    border: none;
+  font-weight: bold;
+  min-width: 30px;
+  padding: 5px 1ch;
+  background-color: var(--button-color);
+  border-radius: 5px;
+  border: none;
 }

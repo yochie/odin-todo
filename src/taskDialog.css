@@ -1,6 +1,8 @@
 .task-dialog {
     min-width: 20%;
     max-width: 75%;
+    background-color: var(--ternary-color);
+    border-radius: 10px;
 }
 
 .task-dialog-header {
