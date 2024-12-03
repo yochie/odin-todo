@@ -36,3 +36,9 @@
     width: 100%;
     padding: 10px;
 }
+
+.task-form input[readonly]{
+    background-color: lightgray;
+    outline: none;
+    border: none;
+}
