@@ -4,7 +4,6 @@ import * as taskInfoView from "./taskInfoView.js";
 
 const dialog = document.querySelector(".task-dialog");
 const closeButton = document.querySelector(".task-dialog-close");
-closeButton.setAttribute("autofocus", "");
 closeButton.addEventListener("click", (e) => {
     e.stopPropagation();
     closeAll();

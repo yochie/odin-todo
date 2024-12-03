@@ -12,8 +12,10 @@ taskPrinter.addPrintout("notes", new Printout("Notes"));
 
 const dialogButtons = document.querySelector(".task-dialog-buttons");
 const container = document.querySelector(".task-info-container");
+const closeButton = document.querySelector(".task-dialog-close");
 
 function displayFor(task, project) {
+    closeButton.setAttribute("autofocus", "");
     container.replaceChildren();
     task.forProject = project;
     taskPrinter.print(container, task);
@@ -30,6 +32,7 @@ function displayFor(task, project) {
 
 function hide() {
     container.replaceChildren();
+    closeButton.removeAttribute("autofocus");
 }
 
 export { displayFor, hide, taskPrinter };
