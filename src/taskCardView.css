@@ -1,21 +1,32 @@
-dialog .task-view {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 20px;
+.project-container .task-card {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
 }
 
-dialog .task-view .button-list{
-    grid-column: span 2;
-    justify-self: right;
+.project-container .task-card h3 {
+   font-weight: bold; 
+}
+
+.today {
+    color: orange;
+}
+
+.past {
+    color: red;
+}
+
+.task-card .title-row {
     display: flex;
-    gap: 10px;
-
+    justify-content: space-between;
 }
 
-.button-list button {
-    padding: 10px 20px;
-}
-
-.task-view .bold {
-    font-weight: bold;
+.delete-button {
+    background-image: url(images/trash.svg);
+    width: 1rem;
+    height: 1rem;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    background-repeat: no-repeat;
+    background-position: center;
 }

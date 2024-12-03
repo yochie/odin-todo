@@ -8,54 +8,36 @@ let currentProjectName = DEFAULT_PROJECT_NAME;
 
 function init() {
     data.initFromStorage(DEFAULT_PROJECT_NAME);
-    generateProjectListWithHandlers();
-    selectProject(DEFAULT_PROJECT_NAME);
-    registerProjectFormHandlers();
-}
-
-document.addEventListener("task-form-submitted", event => {
-    console.log("custom event caught");
-    const project = data.readProject(currentProjectName)
-    projectView.renderProject(project);
-
-    //todo : read event data to highligh created task/project combo
-});
-
-
-function generateProjectListWithHandlers() {
-    projectList.initProjectList(data.getProjectNameList());
-
-    const projectSelectButtons = document.querySelectorAll(".project-list .project-select-button");
-    projectSelectButtons.forEach(button => {
-        button.addEventListener("click", event => {
-            selectProject(button["data-attribute"]);
-        });
+    projectList.generate(data.getProjectNameList(), loadProject);
+    projectForm.init(onProjectCreated);
+    //task form handles relevant data, only need to update ui here
+    //using custom event instead of callback, no good reason except to see how it feels
+    //should probably be kept uniform...
+    document.addEventListener("task-form-submitted", (event) => {
+        console.log(`created ${event.detail.taskName} for project ${event.detail.projectName}`);
+        loadProject(currentProjectName);
+        //todo : read event data to highligh created task/project combo
     });
-}
-
-function registerProjectFormHandlers() {
-    const projectAddButton = document.querySelector(".add-project-button");
-    projectAddButton.addEventListener("click", projectForm.toggleDisplay);
-
-    const field = document.querySelector(".project-form");
-    field.addEventListener("keydown", event => {
-        if (event.keyCode !== 13) {
-            return;
-        }
-
-        const createdName = projectForm.submit(field.value);
-        if (createdName !== "") {
-            generateProjectListWithHandlers();
-            selectProject(createdName);
-        }
-    });
+    loadProject(DEFAULT_PROJECT_NAME);
 }
 
 
-function selectProject(projectName) {
-    projectList.select(projectName);
+function onProjectCreated(projectName) {
+    //form modules handle data creation/modification, we only update ui here
+    projectList.generate(data.getProjectNameList(), loadProject);
+    loadProject(createdName);
+}
+
+function onTaskDeleted(forProject, taskTitle) {
+    //we handle database state here instead of task view to keep view independent from data
+    data.deleteTask(forProject, taskTitle);
+    loadProject(currentProjectName);
+}
+
+function loadProject(projectName) {
+    projectList.highlight(projectName);
     const project = data.readProject(projectName);
-    projectView.renderProject(project);
+    projectView.renderProject(project, onTaskDeleted, onProjectCreated);
     currentProjectName = projectName;
 }
 

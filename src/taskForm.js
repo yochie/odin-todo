@@ -1,5 +1,5 @@
 import "./taskForm.css";
-import { createTask, readTask, updateTask, updateProject, readProject } from "./data.js";
+import { createTask, readTask, updateTask, readProject } from "./data.js";
 
 const formContainer = document.querySelector(".task-form-container")
 const form = document.querySelector(".task-form");
@@ -15,9 +15,12 @@ form.addEventListener("submit", (e) => {
         document.dispatchEvent(
             new CustomEvent("task-form-submitted",
                 {
-                    project: submissionResult.forProject,
-                    task: submissionResult.task
-                }))
+                    detail:
+                    {
+                        projectName: submissionResult.projectName,
+                        taskName: submissionResult.taskName
+                    }
+                }));
     }
     e.preventDefault();
 });
@@ -78,7 +81,7 @@ function submit() {
     }
     form.reset();
     hide();
-    return { success: true, forProject, task: formData.title };
+    return { success: true, projectName: forProject, taskName: formData.get("title") };
 }
 
 function displayError(message) {
