@@ -30,3 +30,8 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.delete-button:hover {
+    width: 1.5rem;
+    height: 1.5rem;
+}

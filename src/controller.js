@@ -25,7 +25,7 @@ function init() {
 function onProjectCreated(projectName) {
     //form modules handle data creation/modification, we only update ui here
     projectList.generate(data.getProjectNameList(), loadProject);
-    loadProject(createdName);
+    loadProject(projectName);
 }
 
 function onTaskDeleted(forProject, taskTitle) {
