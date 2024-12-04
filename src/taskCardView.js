@@ -26,7 +26,7 @@ function createTaskCard(task, forProject, onDelete) {
     taskPrinter.printSingleValue(card, task, "dueDate");
   }
 
-  card.addEventListener("click", (e) => {
+  card.addEventListener("click", () => {
     displayTaskInfo(task, forProject);
   });
   return card;

@@ -9,7 +9,7 @@ closeButton.addEventListener("click", (e) => {
   closeAll();
 });
 
-document.addEventListener("task-form-submitted", (event) => {
+document.addEventListener("task-form-submitted", () => {
   closeAll();
   // todo : read event data to highligh created task/project combo
 });

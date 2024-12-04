@@ -65,7 +65,6 @@ function submit() {
 
   const formData = new FormData(form);
   const forProject = formData.get("forProject");
-  sanitize(formData);
   if (readProject(forProject) === null) {
     throw new Error(`Can't create task for non existing project ${forProject}`);
   }
@@ -100,10 +99,6 @@ function displayError(message) {
 
 function resetError() {
   error.style.display = "none";
-}
-
-function sanitize(formData) {
-  // todo...
 }
 
 export { displayFor, hide };
