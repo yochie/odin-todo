@@ -197,7 +197,7 @@ function updateTask (projectName, title, formData) {
 }
 
 function deleteTask (projectName, taskTitle) {
-  if (!projects.hasOwnProperty(projectName)) {
+  if (!Object.hasOwn(projects, projectName)) {
     throw new Error(`Can't remove task from project ${projectName} as it can't be found`)
   }
   const project = projects[projectName]
