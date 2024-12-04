@@ -1,21 +1,21 @@
 .task-dialog {
-    min-width: 20%;
-    max-width: 75%;
-    background-color: var(--ternary-color);
-    border-radius: 10px;
+  min-width: 20%;
+  max-width: 75%;
+  background-color: var(--ternary-color);
+  border-radius: 10px;
 }
 
 .task-dialog-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
 }
 
 .task-dialog-header h3 {
-    font-weight: bold;
-    font-size: 1.5rem;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .task-dialog button {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }

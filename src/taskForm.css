@@ -1,43 +1,43 @@
 .task-form-container {
-    display: none;
+  display: none;
 }
 
 .task-form {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 10px;
-    padding: 20px;
-    min-width: 500px;
-    max-width: fit-content;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  padding: 20px;
+  min-width: 500px;
+  max-width: fit-content;
 }
 
 .task-form fieldset {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
-.task-form fieldset legend{
-    padding: 0px 5px;
+.task-form fieldset legend {
+  padding: 0px 5px;
 }
 
 .task-form fieldset input[type="radio"] {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 .task-form .task-submit {
-    padding: 10px 20px;
-    grid-column: span 2;
+  padding: 10px 20px;
+  grid-column: span 2;
 }
 
 .task-create-error {
-    grid-column: span 2;
-    display: none;
-    background-color: lightcoral;
-    width: 100%;
-    padding: 10px;
+  grid-column: span 2;
+  display: none;
+  background-color: lightcoral;
+  width: 100%;
+  padding: 10px;
 }
 
-.task-form input[readonly]{
-    background-color: lightgray;
-    outline: none;
-    border: none;
+.task-form input[readonly] {
+  background-color: lightgray;
+  outline: none;
+  border: none;
 }

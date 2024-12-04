@@ -1,8 +1,8 @@
-import './styles.css'
-import * as controller from './controller.js'
+import "./styles.css";
+import * as controller from "./controller.js";
 
 // tests
-controller.init()
+controller.init();
 
 // localStorage.clear();
 // data.updateTask("p1", "t2", {title: "t3", priority: "low", forProject: "p1"});

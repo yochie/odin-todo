@@ -1,68 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="project-list">
-        <div class="title">
-            <h2>Projects</h2>
-            <button class="mybutton add-project-button">+</button>
-        </div>
-        <input class="project-form" type="text" pattern="[a-zA-Z0-9 ]*" maxlength="50" placeholder="project name"
-            required>
-        <div class="project-create-error"></div>
-        <ul>
-        </ul>
+      <div class="title">
+        <h2>Projects</h2>
+        <button class="mybutton add-project-button">+</button>
+      </div>
+      <input
+        class="project-form"
+        type="text"
+        pattern="[a-zA-Z0-9 ]*"
+        maxlength="50"
+        placeholder="project name"
+        required
+      />
+      <div class="project-create-error"></div>
+      <ul></ul>
     </div>
 
     <div class="project-container">
-
-        <div class="header">
-            <h2 class="project-name">Default project</h2>
-            <button class="mybutton add-task-button">+</button>
+      <div class="header">
+        <h2 class="project-name">Default project</h2>
+        <button class="mybutton add-task-button">+</button>
+      </div>
+      <dialog class="task-dialog">
+        <div class="task-dialog-header">
+          <h3 class="task-dialog-title">Create Task</h3>
+          <button class="task-dialog-close mybutton">X</button>
         </div>
-        <dialog class="task-dialog">
-            <div class="task-dialog-header">
-                <h3 class="task-dialog-title">Create Task</h3>
-                <button class="task-dialog-close mybutton">X</button>
-            </div>
-            <div class="task-info-container"></div>
-            <div class="task-form-container">
-                <form class="task-form">
-                    <label for="task-project">Project</label>
-                    <input type="text" id="task-project" name="forProject" readonly>
-                    <label for="task-name">Task</label>
-                    <input id="task-name" name="title" type="text" pattern="[a-zA-Z0-9\.\, ]*" maxlength="200" required>
-                    <label for="task-due-date">Due by</label>
-                    <input id="task-due-date" name="dueDate" type="date">
-                    <fieldset>
-                        <legend>Priority</legend>
-                        <label for="task-priority-normal">normal</label>
-                        <input id="task-priority-normal" name="priority" type="radio" value="normal" checked>
-                        <label for="task-priority-high">high</label>
-                        <input id="task-priority-high" name="priority" type="radio" value="high">
-                        <label for="task-priority-low">low</label>
-                        <input id="task-priority-low" name="priority" type="radio" value="low">
-                    </fieldset>
-                    <label for="task-description">Description</label>
-                    <textarea id="task-description" name="description"></textarea>
-                    <label for="task-notes">Notes</label>
-                    <textarea id="task-notes" name="notes"></textarea>
-                    <button class="task-submit mybutton" type="submit">Create</button>
-                    <div class="task-create-error"></div>
-                </form>
-            </div>
-        </dialog>
-        <div class="tasks-container">
+        <div class="task-info-container"></div>
+        <div class="task-form-container">
+          <form class="task-form">
+            <label for="task-project">Project</label>
+            <input type="text" id="task-project" name="forProject" readonly />
+            <label for="task-name">Task</label>
+            <input
+              id="task-name"
+              name="title"
+              type="text"
+              pattern="[a-zA-Z0-9\.\, ]*"
+              maxlength="200"
+              required
+            />
+            <label for="task-due-date">Due by</label>
+            <input id="task-due-date" name="dueDate" type="date" />
+            <fieldset>
+              <legend>Priority</legend>
+              <label for="task-priority-normal">normal</label>
+              <input
+                id="task-priority-normal"
+                name="priority"
+                type="radio"
+                value="normal"
+                checked
+              />
+              <label for="task-priority-high">high</label>
+              <input
+                id="task-priority-high"
+                name="priority"
+                type="radio"
+                value="high"
+              />
+              <label for="task-priority-low">low</label>
+              <input
+                id="task-priority-low"
+                name="priority"
+                type="radio"
+                value="low"
+              />
+            </fieldset>
+            <label for="task-description">Description</label>
+            <textarea id="task-description" name="description"></textarea>
+            <label for="task-notes">Notes</label>
+            <textarea id="task-notes" name="notes"></textarea>
+            <button class="task-submit mybutton" type="submit">Create</button>
+            <div class="task-create-error"></div>
+          </form>
         </div>
+      </dialog>
+      <div class="tasks-container"></div>
     </div>
-
-</body>
-
+  </body>
 </html>

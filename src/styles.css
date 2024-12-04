@@ -1,4 +1,4 @@
-@import '../node_modules/modern-normalize/modern-normalize.css';
+@import "../node_modules/modern-normalize/modern-normalize.css";
 
 :root {
   line-height: 1.5;
@@ -38,10 +38,10 @@ img {
 
 /* Normalize end */
 :root {
-  --button-color: #FADA7A;
-  --primary-color: #81BFDA;
-  --secondary-color: #B1F0F7;
-  --ternary-color: #F5F0CD;
+  --button-color: #fada7a;
+  --primary-color: #81bfda;
+  --secondary-color: #b1f0f7;
+  --ternary-color: #f5f0cd;
 }
 
 body {

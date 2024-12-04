@@ -1,38 +1,38 @@
 .project-container .task-card {
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: var(--secondary-color);
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--secondary-color);
 }
 
 .project-container .task-card h3 {
-   font-weight: bold; 
+  font-weight: bold;
 }
 
 .today {
-    color: orange;
+  color: orange;
 }
 
 .past {
-    color: red;
+  color: red;
 }
 
 .task-card .title-row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .delete-button {
-    background-image: url(images/trash.svg);
-    width: 1rem;
-    height: 1rem;
-    border: none;
-    background-color: rgba(255, 255, 255, 0);
-    background-repeat: no-repeat;
-    background-position: center;
+  background-image: url(images/trash.svg);
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .delete-button:hover {
-    width: 1.5rem;
-    height: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
